@@ -2,7 +2,10 @@ PREREQUISITES
 ------------
 1.Have Docker installed
 
+From dabatase folder:
+
 docker pull postgres
+
 docker run --name postgre-container -p 5432:5432 -e POSTGRES_PASSWORD=mypassword -d postgres <----> docker start postgre-container
 
 2. create database and user in docker 
