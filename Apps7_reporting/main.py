@@ -27,6 +27,10 @@ try:
                             impressions numeric(5,1) NOT NULL,
                             revenue varchar(10) NOT NULL) '''
     cur.execute(create_script)
+
+    insert_script = 'INSERT INTO daily_report (report_id, report_date, app, platform, requests, impressions, revenue) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+    insert_value = (1, '16/9/2017', 'Talking Ginger', 'iOS', 9295, 137, '1.096')
+    cur.execute(insert_script, insert_value)
     conn.commit()
 except Exception as error:
     print(error)
