@@ -58,9 +58,10 @@ def form_api_url():
 
 def read_csv(source_url):
     data = pd.read_csv(source_url)
-    print(data)
+    return data
 
-def insert_data_to_db():
+def insert_data_to_db(csv_data):
+    #print(csv_data)
     try:
         conn = psycopg2.connect(
             host = hostname,
@@ -80,10 +81,26 @@ def insert_data_to_db():
                                 impressions numeric(5,1) NOT NULL,
                                 revenue varchar(10) NOT NULL) '''
         cur.execute(create_script)
+
+        for ind in csv_data.index:
+            report_date_val = csv_data['Date'][ind]
+            app_val = csv_data['App'][ind]
+            platform_val = csv_data['Platform'][ind]
+            requests_val = csv_data['Requests'][ind]
+            impressions_val = csv_data['Impressions'][ind]
+
+            if first_argument == 'adumbrella':
+                revenue_val = csv_data['Revenue (usd)'][ind]
+                revenue_val = "${:.2f}".format(revenue_val)
+            else:
+                revenue_val = csv_data['Revenue'][ind]
+            print(revenue_val)
+            #print(df['Name'][ind], df['Stream'][ind])
+            # df. iloc[:, 0]
         #for record in:
-        insert_script = 'INSERT INTO daily_report (report_id, report_date, app, platform, requests, impressions, revenue) VALUES (%s, %s, %s, %s, %s, %s, %s)'
-        insert_value = (1, '16/9/2017', 'Talking Ginger', 'iOS', 9295, 137, '1.096')
-        cur.execute(insert_script, insert_value)
+        #insert_script = 'INSERT INTO daily_report (report_id, report_date, app, platform, requests, impressions, revenue) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+        #insert_value = (1, '16/9/2017', 'Talking Ginger', 'iOS', 9295, 137, '1.096')
+        #cur.execute(insert_script, insert_value)
         #for exit
 
         cur.execute('SELECT * FROM daily_report')
@@ -101,7 +118,9 @@ def insert_data_to_db():
 
 if count_arguments():
     first_argument = sys.argv[1]
+    print(first_argument)
     second_argument = sys.argv[2]
     if validate_arguments():
         source_file_url = form_api_url()
-        read_csv(source_file_url)
+        api_csv_dataframe_data = read_csv(source_file_url)
+        insert_data_to_db(api_csv_dataframe_data)
