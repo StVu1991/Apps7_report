@@ -1,6 +1,6 @@
 CSV Report to DB - version 1.0 - 29.6.2022
 
-##GENERAL INFORMATION
+**GENERAL INFORMATION
 ------------------
 This Python script is developed and tested using Windows OS and it is recommended to use it on Windows OS.
 
