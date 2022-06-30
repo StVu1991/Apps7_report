@@ -1,0 +1,30 @@
+Problem 2
+-----------
+What I noticed immediately after opening these two types of reports is that the column names are not identical in these 2 reports:
+(Revenue and Revenue (usd)) 
+This cause problem when accessing the pandas DataFrame object through index, so I had to implement the if-else block to get around this.
+
+Second problem is the last line in one of the reports which does not represent the data which has
+to be entered in the database table and for this report it was necessary to implement the code which will avoid loading that row, to avoid crashing the script.
+
+In addition to these examples, the following things could go wrong:
+1. one of the lines could contain too many or too few columns (delimiters)
+2. using wrong delimiters in csv files, or misuse of commas and periods when writing numbers
+
+Sanity checks I will perform:
+1. The first thing I always do is copy the contents of the CSV to one of the online checkers to quickly find out if everything is OK with the format of file
+2. Check columns in CSV - do they match by names, and do we have same number of columns in each of source file
+3. Check do we have extreme values ​​in one of the columns, for example when we have an integer type, and for example column which
+represents the air temperature which is expected to be from -20 to 40, so if we see that the value deviates significantly from these values, we can doubt the accuracy of the data
+
+
+Problem 3
+---------------
+1. Unexpected situations could be managed perfectly with minimal overhead using workflow platforms for data pipelines like for example - Apache Airflow.
+Apache Airflow has possibility of rescheduling and repeating jobs when they fail, with possibility of e-mail alerts when some of jobs/task fail. 
+All of this features of Airflow contribute to minimal downtimes in data processing jobs.
+
+2. 
+Google Cloud SQL - I will use it as a database. For this purpose SQL database is best solution, and Google Cloud SQL supports PostgreSQL database which I have used to create this solution.
+Google Cloud Run - I found it as simplest solution for running containers (to create the service file and the deployment file).
+Kubernetes - I would use it for automating Docker images and deploying them to the cloud.  
