@@ -1,0 +1,7 @@
+Steps I will do to make this solution production ready:
+
+1. Create configuration file where all hardcoded values will be stored (for example DB connection parameters)
+2. Split configuration file in one file for each environment
+3. Implement log system - it is also useful in development, but it is especially useful in production when
+lot of users will use the script and we want to know when something goes wrong with all details 
+4. Implement Try&Catch blocks wherever it is possible - in order to prevent crashes
