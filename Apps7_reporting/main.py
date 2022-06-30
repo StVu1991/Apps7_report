@@ -77,8 +77,8 @@ def insert_data_to_db(csv_data):
                                 report_date date NOT NULL,
                                 app varchar(45) NOT NULL,
                                 platform varchar(45) NOT NULL,
-                                requests numeric(5,1) NOT NULL,
-                                impressions numeric(5,1) NOT NULL,
+                                requests INT NOT NULL,
+                                impressions INT NOT NULL,
                                 revenue varchar(10) NOT NULL) '''
         cur.execute(create_script)
 
@@ -97,13 +97,14 @@ def insert_data_to_db(csv_data):
             #print(df['Name'][ind], df['Stream'][ind])
             # df. iloc[:, 0]
         #for record in:
-            #print(report_date_val)
+            request_int_val = int(requests_val)
+            impressions_int_val = int(impressions_val)
             insert_script = 'INSERT INTO daily_report (report_date, app, platform, requests, impressions, revenue) VALUES ( %s, %s, %s, %s, %s, %s)'
-            insert_value = (report_date_val, app_val, platform_val, 9295, 137, '1.096')
+            insert_value = (report_date_val, app_val, platform_val, request_int_val, impressions_int_val, revenue_val)
             cur.execute(insert_script, insert_value)
         #for exit
 
-        cur.execute('SELECT * FROM t_daily_report')
+        cur.execute('SELECT * FROM daily_report')
         for record in cur.fetchall():
             print(record)
 
