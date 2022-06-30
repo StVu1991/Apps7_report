@@ -11,6 +11,10 @@ port_id = 5432
 conn = None
 cur = None
 
+'''
+This function count arguments used when executing script
+returns boolean -> True when we have 2 arguments, False for any other number of arguments
+'''
 def count_arguments():
     number_of_arguments = len(sys.argv)
     if number_of_arguments != 3:
@@ -19,6 +23,10 @@ def count_arguments():
     else:
         return True
 
+'''
+This function validate formats of arguments
+returns boolean -> True when both arguments are in proper format, False if any of arguments is not in valid format
+'''
 def validate_arguments():
     if first_argument.lower() != 'supernetwork' and first_argument.lower() != 'adumbrella':
         print('Invalid first argument -> first argument should be supernetwork or adumbrella')
@@ -29,7 +37,11 @@ def validate_arguments():
             return False
         else:
             return True
-
+'''
+This function converts date format from report filename
+date:  should be date format
+returns converted_date -> date in format acceptable for further steps
+'''
 def convert_second_argument(date):
     converted_date = 'dd_mm_yyyy';
     converted_day = date[8:]
@@ -43,10 +55,11 @@ def convert_second_argument(date):
     converted_date = f'{converted_day}_{converted_month}_{converted_year}'
     return converted_date
 
+'''
+This function forms URL which is later used to collect data, URL is formed based on script arguments
+returns report_url -> URL of report we want to import to database
+'''
 def form_api_url():
-    #print(first_argument)
-    #https://storage.googleapis.com/expertise-test/supernetwork/report/daily/2017-09-15.csv
-    #https://storage.googleapis.com/expertise-test/reporting/adumbrella/adumbrella-15_9_2017.csv
     report_url = '';
     if first_argument == 'supernetwork':
         report_url = f'https://storage.googleapis.com/expertise-test/supernetwork/report/daily/{second_argument}.csv'
@@ -56,10 +69,19 @@ def form_api_url():
 
     return report_url
 
+'''
+This function reads CSV file and stores it into Pandas Dataframe object
+source_url:  should be string - URL where report is stored
+returns data -> Pandas Dataframe
+'''
 def read_csv(source_url):
     data = pd.read_csv(source_url, skipfooter=1, engine='python')
     return data
 
+'''
+This function parse Dataframe object and populate database with the data
+csv_data:  should be DataFrame object
+'''
 def insert_data_to_db(csv_data):
     #print(csv_data)
     try:
@@ -106,7 +128,8 @@ def insert_data_to_db(csv_data):
 
         cur.execute('SELECT * FROM daily_report')
         for record in cur.fetchall():
-            print(record)
+            pass;
+            #print(record)
 
         conn.commit()
     except Exception as error:
@@ -117,9 +140,11 @@ def insert_data_to_db(csv_data):
         if conn is not None:
             conn.close()
 
+'''
+SCRIPT FLOW
+'''
 if count_arguments():
     first_argument = sys.argv[1]
-    print(first_argument)
     second_argument = sys.argv[2]
     if validate_arguments():
         source_file_url = form_api_url()
