@@ -3,7 +3,7 @@ import pandas as pd
 import psycopg2
 
 hostname = 'localhost'
-database = 'limitless_demo'
+database = 'apps7db'
 username = 'postgres'
 #master password od PGadmina
 pwd = 'nagobrijed'
@@ -129,7 +129,7 @@ def insert_data_to_db(csv_data):
         cur.execute('SELECT * FROM daily_report')
         for record in cur.fetchall():
             pass;
-            #print(record)
+            print(record)
 
         conn.commit()
     except Exception as error:
