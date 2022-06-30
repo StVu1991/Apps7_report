@@ -30,6 +30,36 @@ def validate_arguments():
         else:
             return True
 
+def convert_second_argument(date):
+    converted_date = 'dd_mm_yyyy';
+    converted_day = date[8:]
+    converted_month = int(date[5:7])
+    converted_year = date[0:4]
+
+    if converted_month < 10:
+        converted_month = str(converted_month)
+        converted_month.replace("0", "")
+
+    converted_date = f'{converted_day}_{converted_month}_{converted_year}'
+    return converted_date
+
+def form_api_url():
+    #print(first_argument)
+    #https://storage.googleapis.com/expertise-test/supernetwork/report/daily/2017-09-15.csv
+    #https://storage.googleapis.com/expertise-test/reporting/adumbrella/adumbrella-15_9_2017.csv
+    report_url = '';
+    if first_argument == 'supernetwork':
+        report_url = f'https://storage.googleapis.com/expertise-test/supernetwork/report/daily/{second_argument}.csv'
+    elif first_argument == 'adumbrella':
+        formatted_date = convert_second_argument(second_argument)
+        report_url = f'https://storage.googleapis.com/expertise-test/reporting/adumbrella/adumbrella-{formatted_date}.csv'
+
+    return report_url
+
+def read_csv(source_url):
+    data = pd.read_csv(source_url)
+    print(data)
+
 def insert_data_to_db():
     try:
         conn = psycopg2.connect(
@@ -73,5 +103,5 @@ if count_arguments():
     first_argument = sys.argv[1]
     second_argument = sys.argv[2]
     if validate_arguments():
-        print(first_argument)
-        print(second_argument)
+        source_file_url = form_api_url()
+        read_csv(source_file_url)
