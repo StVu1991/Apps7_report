@@ -57,7 +57,7 @@ def form_api_url():
     return report_url
 
 def read_csv(source_url):
-    data = pd.read_csv(source_url)
+    data = pd.read_csv(source_url, skipfooter=1, engine='python')
     return data
 
 def insert_data_to_db(csv_data):
@@ -94,16 +94,16 @@ def insert_data_to_db(csv_data):
                 revenue_val = "${:.2f}".format(revenue_val)
             else:
                 revenue_val = csv_data['Revenue'][ind]
-            print(revenue_val)
             #print(df['Name'][ind], df['Stream'][ind])
             # df. iloc[:, 0]
         #for record in:
-        #insert_script = 'INSERT INTO daily_report (report_id, report_date, app, platform, requests, impressions, revenue) VALUES (%s, %s, %s, %s, %s, %s, %s)'
-        #insert_value = (1, '16/9/2017', 'Talking Ginger', 'iOS', 9295, 137, '1.096')
-        #cur.execute(insert_script, insert_value)
+            #print(report_date_val)
+            insert_script = 'INSERT INTO daily_report (report_date, app, platform, requests, impressions, revenue) VALUES ( %s, %s, %s, %s, %s, %s)'
+            insert_value = (report_date_val, app_val, platform_val, 9295, 137, '1.096')
+            cur.execute(insert_script, insert_value)
         #for exit
 
-        cur.execute('SELECT * FROM daily_report')
+        cur.execute('SELECT * FROM t_daily_report')
         for record in cur.fetchall():
             print(record)
 
