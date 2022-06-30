@@ -1,12 +1,12 @@
 CSV Report to DB - version 1.0 - 29.6.2022
 
-GENERAL INFORMATION
+##GENERAL INFORMATION
 ------------------
 This Python script is developed and tested using Windows OS and it is recommended to use it on Windows OS.
 
-PREREQUISITES
+##PREREQUISITES
 ------------------
-1. Python installation
+#1. Python installation
 
 To start this script on your OS should be able to execute Python scripts:
 - Enter Command Prompt and type 'python' 
@@ -18,20 +18,20 @@ To start this script on your OS should be able to execute Python scripts:
 	  After installation open Command prompt one more time and enter 'python'. If Python version is
           displayed, this step is finished!	 
 
-2. pgAdmin installation
+#2. pgAdmin installation
 
 This script will convert reports data from CSV into the PostgreSQL DB. 
 To work with PostgreSQL it is recommended to install pgAdmin which is designed to monitor and manage  
 PostgreSQL database servers.
 pgAdmin installation for Windows is available here: https://www.pgadmin.org/download/pgadmin-4-windows/
 
-3. Create database in pgAdmin -> 
+#3. Create database in pgAdmin -> 
 a) Expand PostgreSQL 14 in pgAdmin
 b) Right click on Databases
 c) Create -> Database (for database name use name of database you specified inside Python script)
 
 
-HOW TO USE SCRIPT (non-Dockerized)
+##HOW TO USE SCRIPT (non-Dockerized)
 --------------------
 Script contains only one file called - main.py
 Steps to execute script:
@@ -54,7 +54,7 @@ For example --> to start script main.py located in C:\scripts do following:
 	3. execute command to run the script -> python.main py supernetwork 2022-06-30
 	4. That's it, your CSV report is inserted into database!
 
-HOW TO USE SCRIPT (Dockerized version)
+##HOW TO USE SCRIPT (Dockerized version)
 ---------------------
 Scripts contains two files - main.py and Dockerfile
 1. Open Command prompt/Powershell/or any other CLI
